@@ -1,2 +1,2 @@
 // noop
-pub mod puzzles;
+pub mod days;
