@@ -1,3 +1,4 @@
+#[derive(Default)]
 pub struct Submarine {
     horizontal_position: isize,
     depth: isize,
@@ -6,8 +7,7 @@ pub struct Submarine {
 impl Submarine {
     pub fn new() -> Self {
         Self {
-            horizontal_position: 0,
-            depth: 0,
+            ..Default::default()
         }
     }
 
@@ -74,5 +74,6 @@ mod tests {
         sub.use_instructions(instructions);
 
         let result = sub.product();
+        println!("{}", result)
     }
 }

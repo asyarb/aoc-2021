@@ -64,8 +64,8 @@ mod tests {
     #[test]
     fn solution() {
         let lines = lines_from_file("src/one/input.txt");
-        let _count = part_two(lines);
+        let count = part_two(lines);
 
-        // println!("{}", count);
+        println!("{}", count);
     }
 }
