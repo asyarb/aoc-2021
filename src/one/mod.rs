@@ -40,7 +40,7 @@ mod tests {
     use std::path::Path;
 
     fn lines_from_file(path: impl AsRef<Path>) -> Vec<usize> {
-        let file = fs::read_to_string(path).expect("Failed to open file.");
+        let file = fs::read_to_string(path).unwrap();
 
         file.lines()
             .map(|line| line.parse().expect("Could not parse line in file."))
