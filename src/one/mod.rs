@@ -1,18 +1,5 @@
-use std::fs;
-use std::path::Path;
-
-fn lines_from_file(path: impl AsRef<Path>) -> Vec<usize> {
-    let file = fs::read_to_string(path).expect("Failed to open file.");
-
-    file.lines()
-        .map(|line| line.parse().expect("Could not parse line in file."))
-        .collect()
-}
-
-pub fn part_one(path: impl AsRef<Path>) -> isize {
-    let lines = lines_from_file(path);
+pub fn part_one(lines: Vec<usize>) -> isize {
     let mut increments = 0;
-
     let mut iter = lines.iter().peekable();
 
     for _ in 0..iter.len() {
@@ -29,8 +16,7 @@ pub fn part_one(path: impl AsRef<Path>) -> isize {
     increments
 }
 
-pub fn part_two(path: impl AsRef<Path>) -> isize {
-    let lines = lines_from_file(path);
+pub fn part_two(lines: Vec<usize>) -> isize {
     let mut increments = 0;
 
     for items in lines.windows(4) {
@@ -50,20 +36,36 @@ pub fn part_two(path: impl AsRef<Path>) -> isize {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
+    use std::path::Path;
+
+    fn lines_from_file(path: impl AsRef<Path>) -> Vec<usize> {
+        let file = fs::read_to_string(path).expect("Failed to open file.");
+
+        file.lines()
+            .map(|line| line.parse().expect("Could not parse line in file."))
+            .collect()
+    }
 
     #[test]
     fn sample_one() {
-        assert_eq!(part_one("src/puzzles/one/sample.txt"), 7);
+        let lines = lines_from_file("src/one/sample.txt");
+
+        assert_eq!(part_one(lines), 7);
     }
 
     #[test]
     fn sample_two() {
-        assert_eq!(part_two("src/puzzles/one/sample.txt"), 5);
+        let lines = lines_from_file("src/one/sample.txt");
+
+        assert_eq!(part_two(lines), 5);
     }
 
     #[test]
     fn solution() {
-        let count = part_two("src/puzzles/one/input.txt");
-        println!("{}", count);
+        let lines = lines_from_file("src/one/input.txt");
+        let _count = part_two(lines);
+
+        // println!("{}", count);
     }
 }
