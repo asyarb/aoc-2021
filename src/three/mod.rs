@@ -1,10 +1,10 @@
 pub fn part_one() -> usize {
     let input = include_str!("./sample.txt");
 
-    let line_length = input.lines().next().unwrap().chars().count() as u32;
+    let line_length = input.lines().next().unwrap().chars().count();
     let line_count = input.lines().count() as u32;
 
-    let gamma = vec![0; line_length.try_into().unwrap()]
+    let gamma = vec![0; line_length]
         .iter()
         .enumerate()
         .map(|(idx, _)| {
