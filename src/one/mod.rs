@@ -1,71 +1,46 @@
-pub fn part_one(lines: Vec<usize>) -> isize {
-    let mut increments = 0;
-    let mut iter = lines.iter().peekable();
+pub fn part_one() -> usize {
+    let depth = include_str!("./sample.txt")
+        .lines()
+        .map(|line| line.parse().unwrap())
+        .collect::<Vec<usize>>()
+        .windows(2)
+        .filter(|window| if let [a, b] = **window { a < b } else { false })
+        .count();
 
-    for _ in 0..iter.len() {
-        let curr = iter.next();
-        let next = iter.peek();
-
-        if let (Some(curr), Some(&next)) = (curr, next) {
-            if next > curr {
-                increments += 1;
-            }
-        }
-    }
-
-    increments
+    depth
 }
 
-pub fn part_two(lines: Vec<usize>) -> isize {
-    let mut increments = 0;
-
-    for items in lines.windows(4) {
-        if let [one, two, three, four] = items {
-            let curr = one + two + three;
-            let next = two + three + four;
-
-            if next > curr {
-                increments += 1;
+pub fn part_two() -> usize {
+    let depth = include_str!("./sample.txt")
+        .lines()
+        .map(|line| line.parse().unwrap())
+        .collect::<Vec<usize>>()
+        .windows(4)
+        .filter(|window| {
+            // We only need to compare the first value to the last value
+            // since both values contain the second and third value
+            if let [one, _, _, four] = **window {
+                one < four
+            } else {
+                false
             }
-        }
-    }
+        })
+        .count();
 
-    increments
+    depth
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::fs;
-    use std::path::Path;
-
-    fn lines_from_file(path: impl AsRef<Path>) -> Vec<usize> {
-        let file = fs::read_to_string(path).unwrap();
-
-        file.lines()
-            .map(|line| line.parse().expect("Could not parse line in file."))
-            .collect()
-    }
 
     #[test]
     fn sample_one() {
-        let lines = lines_from_file("src/one/sample.txt");
-
-        assert_eq!(part_one(lines), 7);
+        assert_eq!(part_one(), 7);
     }
 
     #[test]
     fn sample_two() {
-        let lines = lines_from_file("src/one/sample.txt");
-
-        assert_eq!(part_two(lines), 5);
-    }
-
-    #[test]
-    fn solution() {
-        let lines = lines_from_file("src/one/input.txt");
-        let count = part_two(lines);
-
-        println!("{}", count);
+        assert_eq!(part_two(), 5);
     }
 }
