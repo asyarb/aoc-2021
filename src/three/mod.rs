@@ -15,24 +15,11 @@ pub fn part_one() -> usize {
             })
         })
         .map(|count| (count >= line_count / 2) as u32)
-        .collect::<Vec<u32>>();
-
-    let epsilon = gamma
-        .iter()
-        .map(|bit| if *bit == 1 { 0 } else { 1 })
-        .collect::<Vec<u32>>();
-
-    let gamma = gamma
-        .iter()
-        .map(|val| val.to_string())
-        .collect::<Vec<String>>();
-    let epsilon = epsilon
-        .iter()
         .map(|val| val.to_string())
         .collect::<Vec<String>>();
 
     let gamma = usize::from_str_radix(&gamma.join(""), 2).unwrap();
-    let epsilon = usize::from_str_radix(&epsilon.join(""), 2).unwrap();
+    let epsilon = !gamma & ((1 << line_length) - 1);
 
     gamma * epsilon
 }
