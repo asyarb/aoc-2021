@@ -1,4 +1,4 @@
-const WIDTH: usize = 12;
+const WIDTH: usize = 5;
 
 pub fn part_one() -> usize {
     let input = include_str!("./sample.txt");
@@ -26,7 +26,7 @@ pub fn part_one() -> usize {
 }
 
 pub fn part_two() -> usize {
-    let numbers = include_str!("./input.txt")
+    let numbers = include_str!("./sample.txt")
         .lines()
         .map(|line| usize::from_str_radix(line, 2).unwrap())
         .collect::<Vec<usize>>();
