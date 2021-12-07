@@ -1,11 +1,11 @@
-const WIDTH: usize = 5;
+const BITS: usize = 5;
 
 pub fn part_one() -> usize {
     let input = include_str!("./sample.txt");
 
     let line_count = input.lines().count() as u32;
 
-    let gamma = vec![0; WIDTH]
+    let gamma = vec![0; BITS]
         .iter()
         .enumerate()
         .map(|(idx, _)| {
@@ -20,7 +20,7 @@ pub fn part_one() -> usize {
         .collect::<Vec<String>>();
 
     let gamma = usize::from_str_radix(&gamma.join(""), 2).unwrap();
-    let epsilon = !gamma & ((1 << WIDTH) - 1);
+    let epsilon = !gamma & ((1 << BITS) - 1);
 
     gamma * epsilon
 }
@@ -31,7 +31,7 @@ pub fn part_two() -> usize {
         .map(|line| usize::from_str_radix(line, 2).unwrap())
         .collect::<Vec<usize>>();
 
-    let oxygen = (0..WIDTH)
+    let oxygen = (0..BITS)
         .rev()
         .scan(numbers.clone(), |oxy, i| {
             let one = oxy.iter().filter(|n| *n & 1 << i > 0).count() >= (oxy.len() + 1) / 2;
@@ -42,7 +42,7 @@ pub fn part_two() -> usize {
         .last()
         .unwrap();
 
-    let co2 = (0..WIDTH)
+    let co2 = (0..BITS)
         .rev()
         .scan(numbers, |co2, i| {
             let one = co2.iter().filter(|n| *n & 1 << i > 0).count() >= (co2.len() + 1) / 2;
